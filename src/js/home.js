@@ -10,7 +10,7 @@ export default {
     this.prevBtn = document.querySelector(`.btn-prev`);
     this.filmList = document.querySelector(`.page-main__films-list`);
 
-    this.generateCards(this.page);
+    this.generateCards(1);
     this.bindEvents();
   },
   bindEvents: function() {
