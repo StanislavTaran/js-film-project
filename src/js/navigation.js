@@ -1,29 +1,30 @@
+import homePage from '../templates/home-page.hbs';
+import searchPage from '../templates/search-page.hbs';
+import libraryPage from '../templates/library-page.hbs';
+
 const navigation = {
   init: function() {
-    this.homePage = document.querySelector(`.js-home`);
-    this.libraryPage = document.querySelector(`.js-library`);
-    this.searchPage = document.querySelector(`.js-search`);
+    this.main = document.querySelector(`.page-main`);
     this.homePageLink = document.querySelector(`a[href="/"]`);
     this.libraryPageLink = document.querySelector(`a[href="/library"]`);
 
-    this.hidePages();
+    this.showPages();
   },
-  hidePages: function() {
-    this.homePage.style.display = `none`;
-    this.libraryPage.style.display = `none`;
-    this.searchPage.style.display = `none`;
-
+  showPages: function() {
     if (window.location.pathname === `/`) {
-      this.homePage.style.display = `block`;
+      this.putTemplates(this.main, homePage(this.main));
     }
 
     if (window.location.pathname === `/library`) {
-      this.libraryPage.style.display = `block`;
+      this.putTemplates(this.main, libraryPage(this.main));
     }
 
     if (window.location.pathname === `/search`) {
-      this.searchPage.style.display = `block`;
+      this.putTemplates(this.main, searchPage(this.main));
     }
+  },
+  putTemplates: function(ref, template) {
+    ref.insertAdjacentHTML(`beforeend`, template);
   },
 };
 
