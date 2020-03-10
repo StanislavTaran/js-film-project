@@ -26,6 +26,9 @@ const navigation = {
   putTemplates: function(ref, template) {
     ref.insertAdjacentHTML(`beforeend`, template);
   },
+  getTemplates: function(obj, templates) {
+    return obj.map(item => templates(item)).join(``);
+  },
 };
 
 navigation.init();
