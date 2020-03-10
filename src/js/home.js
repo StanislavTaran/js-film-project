@@ -8,6 +8,7 @@ export default {
     this.mainPage = document.querySelector(`.js-home`);
     this.nextBtn = document.querySelector(`.btn-next`);
     this.prevBtn = document.querySelector(`.btn-prev`);
+    this.filmList = document.querySelector(`.page-main__films-list`);
 
     this.generateCards(1);
     this.bindEvents();
@@ -19,7 +20,7 @@ export default {
   generateCards: function(page) {
     FETCH_FILMS.allFilms(page ? page : 1).then(data => {
       this.page = data.page;
-      this.putTemplates(this.mainPage, this.getTemplates(data.results, card));
+      this.putTemplates(this.filmList, this.getTemplates(data.results, card));
 
       if (this.page === 1) {
         this.prevBtn.setAttribute('disabled', '');
@@ -33,7 +34,7 @@ export default {
     ref.insertAdjacentHTML(`beforeend`, markup);
   },
   clearMarkup: function() {
-    this.mainPage.innerHTML = ``;
+    this.filmList.innerHTML = ``;
   },
   generateAnotherPage: function() {
     this.clearMarkup();
