@@ -20,6 +20,10 @@ export default {
     FETCH_FILMS.allFilms(page ? page : 1).then(data => {
       this.page = data.page;
       this.putTemplates(this.mainPage, this.getTemplates(data.results, card));
+
+      if (this.page === 1) {
+        this.prevBtn.setAttribute('disabled', '');
+      }
     });
   },
   getTemplates: function(obj, templates) {
@@ -43,11 +47,7 @@ export default {
     this.generateAnotherPage();
   },
   prevPage: function() {
-    if (this.page > 1) {
-      this.page--;
-      this.generateAnotherPage();
-    } else {
-      this.prevBtn.setAttribute('disabled', '');
-    }
+    this.page--;
+    this.generateAnotherPage();
   },
 };
