@@ -9,7 +9,7 @@ export default {
     this.nextBtn = document.querySelector(`.btn-next`);
     this.prevBtn = document.querySelector(`.btn-prev`);
 
-    this.generateCards(this.page);
+    this.generateCards(1);
     this.bindEvents();
   },
   bindEvents: function() {
