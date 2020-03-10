@@ -1,6 +1,7 @@
-import homePage from '../templates/home-page.hbs';
-import searchPage from '../templates/search-page.hbs';
-import libraryPage from '../templates/library-page.hbs';
+import homePageTemplate from '../templates/home-page.hbs';
+import searchPageTemplate from '../templates/search-page.hbs';
+import libraryPageTemplate from '../templates/library-page.hbs';
+import homePage from '../js/home';
 
 const navigation = {
   init: function() {
@@ -12,15 +13,16 @@ const navigation = {
   },
   showPages: function() {
     if (window.location.pathname === `/`) {
-      this.putTemplates(this.main, homePage(this.main));
+      this.putTemplates(this.main, homePageTemplate(this.main));
+      homePage.init();
     }
 
     if (window.location.pathname === `/library`) {
-      this.putTemplates(this.main, libraryPage(this.main));
+      this.putTemplates(this.main, libraryPageTemplate(this.main));
     }
 
     if (window.location.pathname === `/search`) {
-      this.putTemplates(this.main, searchPage(this.main));
+      this.putTemplates(this.main, searchPageTemplate(this.main));
     }
   },
   putTemplates: function(ref, template) {
