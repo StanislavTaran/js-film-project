@@ -1,5 +1,4 @@
 import './navigation';
-import './search';
 import FETCH_FILMS from './api/FETCH_FILMS';
 
 // FETCH_FILMS.allFilms(1).then(data => console.log(data));
