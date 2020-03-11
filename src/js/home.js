@@ -15,11 +15,11 @@ export default {
     this.searchInput = document.querySelector(`.search__input`);
 
     if (window.location.pathname === `/`) {
-      this.getAllFilms(1);
+      this.getAllFilms(this.page);
     }
 
     if (window.location.href.indexOf('search') > -1) {
-      this.getSearchedFilms(this.query, 1);
+      this.getSearchedFilms(this.query, this.page);
     }
 
     this.bindEvents();
