@@ -9,6 +9,7 @@ export default {
     this.filmId = this.filmId
       ? this.filmId
       : window.location.search.split('?')[1];
+
     if (window.location.pathname === '/movie') {
       this.getMovieData();
     }
@@ -29,18 +30,26 @@ export default {
     } else if (event.target.tagName === 'P') {
       this.filmId = event.target.previousElementSibling.dataset.id;
     } else return;
-    console.log(this.filmId);
   },
   getMovieData: function() {
-    FETCH_FILMS.filmInfo(this.filmId).then(data => {
-      navigation.putTemplates(navigation.main, filmInfoTemplate(data));
-    });
+    if (this.filmId) {
+      FETCH_FILMS.filmInfo(this.filmId).then(data => {
+        navigation.putTemplates(navigation.main, filmInfoTemplate(data));
+      });
+    } else return;
   },
   generateFilmInfoPage: function(e) {
-    this.getFilmId(e);
-    navigation.clearMarkup();
-    history.pushState(null, null, `/movie?${this.filmId}`);
+    if (e.target.tagName === 'UL') {
+      return;
+    } else {
+      this.getFilmId(e);
+      navigation.clearMarkup();
+      history.pushState(null, null, `/movie?${this.filmId}`);
 
-    this.getMovieData();
+      this.getMovieData();
+    }
+  },
+  resetFilmId: function() {
+    this.filmId = null;
   },
 };
