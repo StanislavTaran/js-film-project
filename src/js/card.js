@@ -23,13 +23,6 @@ export default {
     } else return;
     console.log(this.filmId);
   },
-  generateFilmInfoPage: function(e) {
-    this.getFilmId(e);
-    navigation.clearMarkup();
-    history.pushState(null, null, `/movie?${this.filmId}`);
-
-    this.getMovieData();
-  },
   getMovieData: function() {
     return new Promise((resolve, reject) => {
       resolve(
@@ -49,4 +42,18 @@ export default {
       );
     });
   },
+  generateFilmInfoPage: function(e) {
+    this.getFilmId(e);
+    navigation.clearMarkup();
+    history.pushState(null, null, `/movie?${this.filmId}`);
+
+    this.getMovieData();
+  },
 };
+window.addEventListener('change', () => {
+  console.log('URL WAS CHANDES');
+});
+// if (window.location.pathname === `/movie`) {
+//   this.putTemplates(this.main, homePageTemplate(this.main));
+//   homePage.init();
+// }

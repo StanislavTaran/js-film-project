@@ -1,5 +1,5 @@
 .film__card {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   max-height: 400px;
   width: 300px;
@@ -14,14 +14,14 @@
 }
 
 .film__card--title {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 900;
   //   color: #fff;
   margin: 0;
+  text-align: center;
 }
 
 .film__card-stars {
-  display: block;
   font-style: 20px;
 }
 
@@ -32,15 +32,21 @@
 .film__card-release {
   font-style: italic;
 }
-
+.film__card-stars,
+.film__card-release,
+.film__card details {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+}
 .film__card-button {
   margin: 0 auto;
   padding: 0;
   display: block;
   height: 40px;
   width: 260px;
+
+  &:hover {
+    background-color: #f8104d;
+  }
 }
-
-$material-icons-font-path: '~material-icons/iconfont/';
-
-@import '~material-icons/iconfont/material-icons.scss';
