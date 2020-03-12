@@ -1,0 +1,22 @@
+<div class="film__card">
+    <h3 class="film__card--title">{{title}}</h3>
+    <img class="film__card--poster" src='https://image.tmdb.org/t/p/w200{{poster_path}}' alt={{original_title}} />
+    <div class="film__card-attr">
+        <span class="film__card-stars"><i class="material-icons icon--star">stars</i>{{vote_average}}</span>
+        <span class="film__card-release">Дата выхода: {{release_date}}</span>
+    </div>
+    <div class="film__card-buttons">
+        <button id="overlooked" class="film__card-button">
+            <i class="material-icons icon--star">folder_open</i> Добавить в
+            просмотренные
+        </button>
+        <button id="add-to-queue" class="film__card-button">
+            <i class="material-icons icon--star">add_circle_outline</i> Добавить
+            в очередь просмотра
+        </button>
+    </div>
+    <details>
+        <summary>Показать описание</summary>
+        {{overview}}
+    </details>
+</div>

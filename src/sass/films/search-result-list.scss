@@ -12,15 +12,9 @@
   position: relative;
   margin-bottom: 10px;
 
-  &::nth-last-child(n-5) {
-    margin-bottom: 0;
+  &:hover {
+    cursor: pointer;
   }
-}
-
-.film-card__container a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
 }
 
 .film-card__name {
