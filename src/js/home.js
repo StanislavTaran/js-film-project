@@ -1,5 +1,6 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
-import card from '../templates/card.hbs';
+import cardTemplate from '../templates/card.hbs';
+import filmInfo from './card';
 
 export default {
   init: function() {
@@ -23,6 +24,7 @@ export default {
     }
 
     this.bindEvents();
+    filmInfo.init();
   },
   bindEvents: function() {
     this.searchForm.addEventListener(`submit`, this.getSearchPage.bind(this));
@@ -34,7 +36,10 @@ export default {
     FETCH_FILMS.allFilms(page ? page : 1).then(data => {
       this.page = data.page;
       this.clearMarkup();
-      this.putTemplates(this.filmList, this.getTemplates(data.results, card));
+      this.putTemplates(
+        this.filmList,
+        this.getTemplates(data.results, cardTemplate),
+      );
 
       if (this.page === 1) {
         this.prevBtn.setAttribute('disabled', '');
@@ -60,7 +65,10 @@ export default {
     FETCH_FILMS.searchFilms(query, page).then(data => {
       this.page = data.page;
       this.clearMarkup();
-      this.putTemplates(this.filmList, this.getTemplates(data.results, card));
+      this.putTemplates(
+        this.filmList,
+        this.getTemplates(data.results, cardTemplate),
+      );
 
       if (this.page === 1) {
         this.prevBtn.setAttribute('disabled', '');

@@ -60,3 +60,4 @@ const navigation = {
 };
 
 navigation.init();
+export { navigation };
