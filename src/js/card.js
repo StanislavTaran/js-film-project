@@ -9,16 +9,19 @@ export default {
     this.filmId = this.filmId
       ? this.filmId
       : window.location.search.split('?')[1];
+    if (window.location.pathname === '/movie') {
+      this.getMovieData();
+    }
 
-    console.log(this.filmId);
-    this.getMovieData();
     this.bindEvents();
   },
   bindEvents: function() {
-    homePage.filmList.addEventListener(
-      `click`,
-      this.generateFilmInfoPage.bind(this),
-    );
+    if (homePage.filmList) {
+      homePage.filmList.addEventListener(
+        `click`,
+        this.generateFilmInfoPage.bind(this),
+      );
+    }
   },
   getFilmId: function(event) {
     if (event.target.tagName === 'IMG') {
