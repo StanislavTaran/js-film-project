@@ -1,6 +1,7 @@
-// import FETCH_FILMS from './api/FETCH_FILMS';
+import FETCH_FILMS from './api/FETCH_FILMS';
 import homePage from '../js/home';
 import { navigation } from './navigation';
+import filmInfoTemplate from '../templates/filmInfo.hbs';
 
 export default {
   init: function() {
@@ -9,21 +10,43 @@ export default {
     this.bindEvents();
   },
   bindEvents: function() {
-    homePage.filmList.addEventListener(`click`, this.getFilmInfo.bind(this));
+    homePage.filmList.addEventListener(
+      `click`,
+      this.generateFilmInfoPage.bind(this),
+    );
   },
-  getFilmInfo: function(e) {
-    if (e.target.tagName === 'IMG') {
-      this.filmId = e.target.dataset.id;
-    } else if (e.target.tagName === 'P') {
-      this.filmId = e.target.previousElementSibling.dataset.id;
+  getFilmId: function(event) {
+    if (event.target.tagName === 'IMG') {
+      this.filmId = event.target.dataset.id;
+    } else if (event.target.tagName === 'P') {
+      this.filmId = event.target.previousElementSibling.dataset.id;
     } else return;
+    console.log(this.filmId);
   },
   generateFilmInfoPage: function(e) {
+    this.getFilmId(e);
     navigation.clearMarkup();
     history.pushState(null, null, `/movie?${this.filmId}`);
-    navigation.putTemplates(
-      navigation.main,
-      libraryPageTemplate(navigation.main),
-    );
+
+    this.getMovieData();
+  },
+  getMovieData: function() {
+    return new Promise((resolve, reject) => {
+      resolve(
+        fetch(
+          'https://api.themoviedb.org/3/movie/' +
+            this.filmId +
+            '?api_key=4c70739ab1bc7f2c582885ab460406ce',
+        )
+          .then(res => {
+            const data = res.json();
+            console.log(data);
+            return data;
+          })
+          .then(data => {
+            navigation.putTemplates(navigation.main, filmInfoTemplate(data));
+          }),
+      );
+    });
   },
 };
