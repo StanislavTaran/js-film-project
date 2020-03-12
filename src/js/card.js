@@ -6,7 +6,12 @@ import filmInfoTemplate from '../templates/filmInfo.hbs';
 export default {
   init: function() {
     this.mainPoster = document.querySelector('.film-poster');
-    this.filmId = null;
+    this.filmId = this.filmId
+      ? this.filmId
+      : window.location.search.split('?')[1];
+
+    console.log(this.filmId);
+    this.getMovieData();
     this.bindEvents();
   },
   bindEvents: function() {
@@ -24,22 +29,8 @@ export default {
     console.log(this.filmId);
   },
   getMovieData: function() {
-    return new Promise((resolve, reject) => {
-      resolve(
-        fetch(
-          'https://api.themoviedb.org/3/movie/' +
-            this.filmId +
-            '?api_key=4c70739ab1bc7f2c582885ab460406ce',
-        )
-          .then(res => {
-            const data = res.json();
-            console.log(data);
-            return data;
-          })
-          .then(data => {
-            navigation.putTemplates(navigation.main, filmInfoTemplate(data));
-          }),
-      );
+    FETCH_FILMS.filmInfo(this.filmId).then(data => {
+      navigation.putTemplates(navigation.main, filmInfoTemplate(data));
     });
   },
   generateFilmInfoPage: function(e) {
@@ -50,10 +41,3 @@ export default {
     this.getMovieData();
   },
 };
-window.addEventListener('change', () => {
-  console.log('URL WAS CHANDES');
-});
-// if (window.location.pathname === `/movie`) {
-//   this.putTemplates(this.main, homePageTemplate(this.main));
-//   homePage.init();
-// }

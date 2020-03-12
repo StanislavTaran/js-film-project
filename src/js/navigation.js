@@ -1,6 +1,7 @@
 import homePageTemplate from '../templates/home-page.hbs';
 import libraryPageTemplate from '../templates/library-page.hbs';
 import homePage from '../js/home';
+import filmInfo from '../js/card';
 
 const navigation = {
   init: function() {
@@ -28,6 +29,7 @@ const navigation = {
     this.clearMarkup();
     history.pushState(null, null, '/');
     this.putTemplates(this.main, homePageTemplate(this.main));
+
     homePage.init();
   },
   generateLibraryPage: function(e) {
@@ -49,6 +51,10 @@ const navigation = {
     if (window.location.pathname === `/search`) {
       this.putTemplates(this.main, homePageTemplate(this.main));
       homePage.init();
+    }
+
+    if (window.location.href.indexOf('movie') > -1) {
+      filmInfo.init();
     }
   },
   putTemplates: function(ref, template) {
