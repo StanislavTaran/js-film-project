@@ -7,6 +7,7 @@ export default {
     this.query = this.query ? this.query : window.location.search.split('?')[1];
     this.page = 1;
     this.pageNumber = document.querySelector(`.current-page`);
+    this.main = document.querySelector(`.page-main`);
     this.mainPage = document.querySelector(`.js-home`);
     this.nextBtn = document.querySelector(`.btn-next`);
     this.prevBtn = document.querySelector(`.btn-prev`);
@@ -48,13 +49,10 @@ export default {
       if (this.page === data.total_pages) {
         this.nextBtn.setAttribute('disabled', '');
       }
-
-      this.pageTitle.innerText = `Популярные фильмы`;
     });
   },
   getSearchPage: function(e) {
     e.preventDefault();
-    this.searchInput.value = '';
 
     if (this.query !== undefined) {
       history.pushState(null, null, `/search?${this.query}`);
@@ -62,9 +60,11 @@ export default {
     }
   },
   getSearchedFilms: function(query, page) {
+    this.pageTitle.innerText = `Результат поиска:`;
+
     FETCH_FILMS.searchFilms(query, page).then(data => {
       this.page = data.page;
-      this.clearMarkup();
+      // this.clearMarkup();
       this.putTemplates(
         this.filmList,
         this.getTemplates(data.results, cardTemplate),
@@ -84,8 +84,6 @@ export default {
       } else {
         this.nextBtn.removeAttribute('disabled');
       }
-
-      this.pageTitle.innerText = `Результат поиска:`;
     });
   },
   getSearchQuery: function(e) {
@@ -96,6 +94,9 @@ export default {
   },
   putTemplates: function(ref, markup) {
     ref.insertAdjacentHTML(`beforeend`, markup);
+  },
+  clearFullMarkup: function() {
+    this.main.innerHTML = ``;
   },
   clearMarkup: function() {
     this.filmList.innerHTML = ``;
