@@ -23,13 +23,8 @@ export default {
   bindEvents: function() {
     this.searchForm.addEventListener(`submit`, this.getSearchPage.bind(this));
     this.searchInput.addEventListener(`input`, this.getSearchQuery.bind(this));
-    if (
-      window.location.pathname === `/` &&
-      window.location.href.indexOf('library') > -1
-    ) {
-      this.nextBtn.addEventListener(`click`, this.nextPage.bind(this));
-      this.prevBtn.addEventListener(`click`, this.prevPage.bind(this));
-    }
+    this.nextBtn.addEventListener(`click`, this.nextPage.bind(this));
+    this.prevBtn.addEventListener(`click`, this.prevPage.bind(this));
   },
   getSearchPage: function(e) {
     e.preventDefault();
