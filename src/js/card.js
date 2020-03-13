@@ -54,14 +54,16 @@ export default {
   },
   addToWatched: function() {
     if (navigation.watched.length !== 0) {
-      if (navigation.watched.indexOf(this.filmId) == -1) {
+      if (navigation.watched.indexOf(this.filmId) === -1) {
         navigation.watched.push(this.filmId);
-        localStorage.setItem('films', navigation.watched);
+        localStorage.setItem('films', [navigation.watched]);
       }
     } else {
       navigation.watched.push(this.filmId);
-      localStorage.setItem('films', navigation.watched);
+      localStorage.setItem('films', [navigation.watched]);
     }
+
+    console.log(navigation.watched);
   },
   clearMarkup: function() {
     this.main.innerHTML = ``;
