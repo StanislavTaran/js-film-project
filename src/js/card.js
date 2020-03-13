@@ -1,11 +1,11 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
-import homePage from '../js/home';
 import { navigation } from './navigation';
 import filmInfoTemplate from '../templates/filmInfo.hbs';
 
 export default {
   init: function() {
     this.main = document.querySelector(`.page-main`);
+    this.filmList = document.querySelector(`.page-main__films-list`);
     this.filmId = this.filmId
       ? this.filmId
       : window.location.search.split('?')[1];
@@ -13,17 +13,19 @@ export default {
     this.bindEvents();
   },
   bindEvents: function() {
-    homePage.filmList.addEventListener(
+    this.filmList.addEventListener(
       `click`,
       this.generateFilmInfoPage.bind(this),
     );
   },
-  getFilmId: async function(event) {
+  getFilmId: function(event) {
     if (event.target.tagName === 'IMG') {
       this.filmId = event.target.dataset.id;
     } else if (event.target.tagName === 'P') {
       this.filmId = event.target.previousElementSibling.dataset.id;
-    } else return;
+    } else {
+      this.filmId = undefined;
+    }
   },
   getMovieData: function() {
     if (this.filmId) {
@@ -34,13 +36,15 @@ export default {
     } else return;
   },
   generateFilmInfoPage: function() {
-    this.clearMarkup();
     if (window.location.href.indexOf('movie') === -1) {
       this.getFilmId(event);
     }
 
-    this.getMovieData();
-    history.pushState(null, null, `/movie?${this.filmId}`);
+    if (this.filmId !== undefined) {
+      this.clearMarkup();
+      this.getMovieData();
+      history.pushState(null, null, `/movie?${this.filmId}`);
+    }
   },
   clearMarkup: function() {
     this.main.innerHTML = ``;
