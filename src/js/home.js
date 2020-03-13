@@ -21,8 +21,13 @@ export default {
     search.init();
   },
   bindEvents: function() {
-    this.nextBtn.addEventListener(`click`, this.nextPage.bind(this));
-    this.prevBtn.addEventListener(`click`, this.prevPage.bind(this));
+    if (
+      window.location.pathname === `/` &&
+      window.location.href.indexOf('library') > -1
+    ) {
+      this.nextBtn.addEventListener(`click`, this.nextPage.bind(this));
+      this.prevBtn.addEventListener(`click`, this.prevPage.bind(this));
+    }
   },
   getAllFilms: function(page) {
     FETCH_FILMS.allFilms(page ? page : 1).then(data => {
