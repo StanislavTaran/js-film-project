@@ -53,13 +53,15 @@ export default {
     }
   },
   addToWatched: function() {
-    navigation.watched.forEach(element => {
-      console.log(element);
-      if (element !== this.filmId) {
-        navigation.watched.push([this.filmId]);
+    if (navigation.watched.length !== 0) {
+      if (navigation.watched.indexOf(this.filmId) == -1) {
+        navigation.watched.push(this.filmId);
         localStorage.setItem('films', navigation.watched);
       }
-    });
+    } else {
+      navigation.watched.push(this.filmId);
+      localStorage.setItem('films', navigation.watched);
+    }
   },
   clearMarkup: function() {
     this.main.innerHTML = ``;
