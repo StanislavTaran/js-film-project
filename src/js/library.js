@@ -4,11 +4,14 @@ import filmInfo from '../js/card';
 
 export default {
   init: function() {
-    this.mainPage = document.querySelector(`.js-home`);
     this.filmList = document.querySelector(`.page-main__films-list`);
+    this.watchedFilms = document.querySelector(
+      `.page-main__films-list--watched`,
+    );
 
     this.build();
     filmInfo.init();
+    this.getTrigger();
   },
   bindEvents: function() {},
   build: function() {
@@ -19,10 +22,30 @@ export default {
         if (item !== ``) {
           FETCH_FILMS.filmInfo(item).then(data => {
             console.log(data);
-            this.putTemplates(this.filmList, cardTemplate(data));
+            this.putTemplates(this.watchedFilms, cardTemplate(data));
           });
         }
       });
+  },
+  getTrigger: function() {
+    const jsTriggers = document.querySelectorAll('.js-tab-trigger');
+
+    jsTriggers.forEach(function(trigger) {
+      trigger.addEventListener('click', function() {
+        const id = this.getAttribute('data-tab');
+        const content = document.querySelector(
+          '.js-tab-content[data-tab="' + id + '"]',
+        );
+        const activeTrigger = document.querySelector('.js-tab-trigger.active');
+        const activeContent = document.querySelector('.js-tab-content.active');
+
+        activeTrigger.classList.remove('active');
+        trigger.classList.add('active');
+
+        activeContent.classList.remove('active');
+        content.classList.add('active');
+      });
+    });
   },
   getTemplates: function(obj, templates) {
     return obj.map(item => templates(item)).join(``);

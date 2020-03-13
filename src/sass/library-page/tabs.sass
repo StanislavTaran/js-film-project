@@ -1,0 +1,36 @@
+.tabs
+  width: 100%
+
+.tab-header
+  list-style: none
+  padding-left: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: 0
+
+.tab-header__item
+  padding: 10px 20px
+  margin-right: 5px
+  cursor: pointer
+  border: 1px solid #ddd
+
+.tab-header__item.active
+  color: red
+  border-bottom: none
+  position: relative
+  background-color: #fff
+
+.tab-content
+  list-style: none
+  padding: 0
+  margin: 0
+
+.tab-content__item
+  display: none
+  padding: 20px
+  border: 1px solid #ddd
+  margin-top: -1px
+
+.tab-content__item.active
+  display: block
