@@ -1,7 +1,9 @@
 import homePageTemplate from '../templates/home-page.hbs';
+import libraryPageTemplate from '../templates/library-page.hbs';
 import homePage from '../js/home';
 import filmInfo from '../js/card';
 import library from '../js/library';
+import search from '../js/search';
 
 const navigation = {
   init: function() {
@@ -37,7 +39,8 @@ const navigation = {
   },
   generateLibraryPage: function(e) {
     e.preventDefault();
-    this.generatePage();
+    this.clearMarkup();
+    this.putTemplates(this.main, libraryPageTemplate(this.main));
     history.pushState(null, null, '/library');
     library.init();
   },
@@ -58,9 +61,6 @@ const navigation = {
   },
   clearMarkup: function() {
     this.main.innerHTML = ``;
-  },
-  clear: function() {
-    this.mainPage.innerHTML = ``;
   },
 };
 

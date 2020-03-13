@@ -1,31 +1,45 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
 import cardTemplate from '../templates/card.hbs';
-import filmInfo from './card';
-import search from './search';
+import { navigation } from './navigation';
 
 export default {
   init: function() {
+    this.query = this.query ? this.query : window.location.search.split('?')[1];
     this.page = 1;
     this.pageNumber = document.querySelector(`.current-page`);
     this.nextBtn = document.querySelector(`.btn-next`);
     this.prevBtn = document.querySelector(`.btn-prev`);
     this.pageTitle = document.querySelector(`.page-title`);
     this.filmList = document.querySelector(`.page-main__films-list`);
+    this.searchForm = document.querySelector(`.search__form`);
+    this.searchInput = document.querySelector(`.search__input`);
 
-    if (window.location.pathname === `/`) {
-      this.getAllFilms(this.page);
+    if (window.location.href.indexOf('search') > -1) {
+      this.getSearchedFilms(this.query, this.page);
     }
 
     this.bindEvents();
-    filmInfo.init();
-    search.init();
   },
   bindEvents: function() {
+    this.searchForm.addEventListener(`submit`, this.getSearchPage.bind(this));
+    this.searchInput.addEventListener(`input`, this.getSearchQuery.bind(this));
     this.nextBtn.addEventListener(`click`, this.nextPage.bind(this));
     this.prevBtn.addEventListener(`click`, this.prevPage.bind(this));
   },
-  getAllFilms: function(page) {
-    FETCH_FILMS.allFilms(page ? page : 1).then(data => {
+  getSearchPage: function(e) {
+    e.preventDefault();
+
+    if (this.query !== undefined) {
+      history.pushState(null, null, `/search?${this.query}`);
+      navigation.generatePage();
+      this.getSearchedFilms(this.query, 1);
+    }
+  },
+  getSearchedFilms: function(query, page) {
+    this.pageTitle.innerText = `Результат поиска:`;
+    this.searchInput.value = ``;
+
+    FETCH_FILMS.searchFilms(query, page).then(data => {
       this.page = data.page;
       this.clearMarkup();
       this.putTemplates(
@@ -40,7 +54,17 @@ export default {
       if (this.page === data.total_pages) {
         this.nextBtn.setAttribute('disabled', '');
       }
+
+      if (data.total_pages <= 20) {
+        this.prevBtn.setAttribute('disabled', '');
+        this.nextBtn.setAttribute('disabled', '');
+      } else {
+        this.nextBtn.removeAttribute('disabled');
+      }
     });
+  },
+  getSearchQuery: function(e) {
+    return (this.query = e.target.value);
   },
   getTemplates: function(obj, templates) {
     return obj.map(item => templates(item)).join(``);
@@ -57,8 +81,8 @@ export default {
     this.prevBtn.removeAttribute('disabled');
     this.pageNumber.innerHTML = this.page;
 
-    if (window.location.pathname === `/`) {
-      this.getAllFilms(this.page);
+    if (window.location.href.indexOf('search') > -1) {
+      this.getSearchedFilms(this.query, this.page);
     }
   },
   nextPage: function() {
