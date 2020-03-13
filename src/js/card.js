@@ -39,8 +39,4 @@ export default {
       });
     } else return;
   },
-
-  resetFilmId: function() {
-    this.filmId = null;
-  },
 };

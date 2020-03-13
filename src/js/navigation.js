@@ -51,7 +51,6 @@ const navigation = {
       filmInfo.getFilmId(e);
       navigation.clearMarkup();
       history.pushState(null, null, `/movie?${this.filmId}`);
-
       filmInfo.getMovieData();
     }
   },
