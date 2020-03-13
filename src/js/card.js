@@ -5,7 +5,7 @@ import filmInfoTemplate from '../templates/filmInfo.hbs';
 
 export default {
   init: function() {
-    this.mainPoster = document.querySelector('.film-poster');
+    // this.mainPoster = document.querySelector('.film-poster');
     this.filmId = this.filmId
       ? this.filmId
       : window.location.search.split('?')[1];
@@ -20,7 +20,7 @@ export default {
     if (homePage.filmList) {
       homePage.filmList.addEventListener(
         `click`,
-        this.generateFilmInfoPage.bind(this),
+        navigation.generateFilmInfoPage.bind(this),
       );
     }
   },
@@ -33,23 +33,10 @@ export default {
   },
   getMovieData: function() {
     if (this.filmId) {
+      navigation.clearMarkup();
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
         navigation.putTemplates(navigation.main, filmInfoTemplate(data));
       });
     } else return;
-  },
-  generateFilmInfoPage: function(e) {
-    if (e.target.tagName === 'UL') {
-      return;
-    } else {
-      this.getFilmId(e);
-      navigation.clearMarkup();
-      history.pushState(null, null, `/movie?${this.filmId}`);
-
-      this.getMovieData();
-    }
-  },
-  resetFilmId: function() {
-    this.filmId = null;
   },
 };
