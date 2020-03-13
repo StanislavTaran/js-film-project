@@ -40,6 +40,8 @@ export default {
       if (this.page === data.total_pages) {
         this.nextBtn.setAttribute('disabled', '');
       }
+
+      return data;
     });
   },
   getTemplates: function(obj, templates) {

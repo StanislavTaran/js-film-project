@@ -6,6 +6,7 @@ export default {
   init: function() {
     this.main = document.querySelector(`.page-main`);
     this.filmList = document.querySelector(`.page-main__films-list`);
+
     this.filmId = this.filmId
       ? this.filmId
       : window.location.search.split('?')[1];
@@ -32,6 +33,11 @@ export default {
       navigation.clearMarkup();
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
         this.putTemplates(this.main, filmInfoTemplate(data));
+        this.addToWatchBtn = document.querySelector(`#overlooked`);
+        this.addToWatchBtn.addEventListener(
+          `click`,
+          this.addToWatched.bind(this),
+        );
       });
     } else return;
   },
@@ -45,6 +51,15 @@ export default {
       this.getMovieData();
       history.pushState(null, null, `/movie?${this.filmId}`);
     }
+  },
+  addToWatched: function() {
+    navigation.watched.forEach(element => {
+      console.log(element);
+      if (element !== this.filmId) {
+        navigation.watched.push([this.filmId]);
+        localStorage.setItem('films', navigation.watched);
+      }
+    });
   },
   clearMarkup: function() {
     this.main.innerHTML = ``;

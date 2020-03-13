@@ -6,6 +6,9 @@ import library from '../js/library';
 
 const navigation = {
   init: function() {
+    this.watched = [localStorage.getItem('films')]
+      ? [localStorage.getItem('films')]
+      : [];
     this.main = document.querySelector(`.page-main`);
     this.homePageLink = document.querySelector(`.header-nav__link--main`);
     this.logoLink = document.querySelector(`.header-nav__logo`);
