@@ -21,18 +21,20 @@ export default {
     this.bindEvents();
   },
   bindEvents: function() {
-    this.searchForm.addEventListener(`submit`, this.getSearchPage.bind(this));
+    this.searchForm.addEventListener(`submit`, this.submitSearch.bind(this));
     this.searchInput.addEventListener(`input`, this.getSearchQuery.bind(this));
     this.nextBtn.addEventListener(`click`, this.nextPage.bind(this));
     this.prevBtn.addEventListener(`click`, this.prevPage.bind(this));
   },
-  getSearchPage: function(e) {
+  submitSearch: function(e) {
     e.preventDefault();
-
+    this.getSearchPage();
+  },
+  getSearchPage: function() {
     if (this.query !== undefined) {
       history.pushState(null, null, `/search?${this.query}`);
       navigation.generateHome();
-      this.getSearchedFilms(this.query, 1);
+      location.reload();
     }
   },
   getSearchedFilms: function(query, page) {
