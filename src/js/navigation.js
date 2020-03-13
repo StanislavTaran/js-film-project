@@ -44,6 +44,17 @@ const navigation = {
     history.pushState(null, null, '/library');
     library.init();
   },
+  generateFilmInfoPage: function(e) {
+    if (e.target.tagName === 'UL') {
+      return;
+    } else {
+      filmInfo.getFilmId(e);
+      navigation.clearMarkup();
+      history.pushState(null, null, `/movie?${this.filmId}`);
+
+      filmInfo.getMovieData();
+    }
+  },
   showPages: function() {
     this.generatePage();
 
