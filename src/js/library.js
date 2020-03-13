@@ -15,17 +15,19 @@ export default {
   },
   bindEvents: function() {},
   build: function() {
-    localStorage
-      .getItem(`films`)
-      .split(',')
-      .forEach(item => {
-        if (item !== ``) {
-          FETCH_FILMS.filmInfo(item).then(data => {
-            console.log(data);
-            this.putTemplates(this.watchedFilms, cardTemplate(data));
-          });
-        }
-      });
+    if (localStorage.getItem(`films`) !== null) {
+      localStorage
+        .getItem(`films`)
+        .split(',')
+        .forEach(item => {
+          if (item !== ``) {
+            FETCH_FILMS.filmInfo(item).then(data => {
+              console.log(data);
+              this.putTemplates(this.watchedFilms, cardTemplate(data));
+            });
+          }
+        });
+    }
   },
   getTrigger: function() {
     const jsTriggers = document.querySelectorAll('.js-tab-trigger');
