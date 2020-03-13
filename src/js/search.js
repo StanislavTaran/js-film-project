@@ -31,7 +31,7 @@ export default {
 
     if (this.query !== undefined) {
       history.pushState(null, null, `/search?${this.query}`);
-      navigation.generatePage();
+      navigation.generateHome();
       this.getSearchedFilms(this.query, 1);
     }
   },

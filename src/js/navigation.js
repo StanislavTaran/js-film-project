@@ -3,7 +3,6 @@ import libraryPageTemplate from '../templates/library-page.hbs';
 import homePage from '../js/home';
 import filmInfo from '../js/card';
 import library from '../js/library';
-import search from '../js/search';
 
 const navigation = {
   init: function() {
@@ -27,7 +26,7 @@ const navigation = {
       this.generateLibraryPage.bind(this),
     );
   },
-  generatePage: function() {
+  generateHome: function() {
     this.clearMarkup();
     this.putTemplates(this.main, homePageTemplate(this.main));
     homePage.init();
@@ -35,20 +34,23 @@ const navigation = {
   generateHomePage: function(e) {
     e.preventDefault();
     history.pushState(null, null, '/');
-    this.generatePage();
+    this.generateHome();
   },
   generateLibraryPage: function(e) {
     e.preventDefault();
+    this.generateLibrary();
+  },
+  generateLibrary: function() {
     this.clearMarkup();
     this.putTemplates(this.main, libraryPageTemplate(this.main));
     history.pushState(null, null, '/library');
     library.init();
   },
   showPages: function() {
-    this.generatePage();
+    this.generateHome();
 
     if (window.location.href.indexOf('library') > -1) {
-      library.init();
+      this.generateLibrary();
     }
 
     if (window.location.href.indexOf('movie') > -1) {
