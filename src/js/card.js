@@ -5,6 +5,7 @@ import utils from './utils';
 
 export default {
   init: function() {
+    this.watchedFlag = false;
     this.main = document.querySelector(`.page-main`);
     this.filmList = document.querySelector(`.page-main__films-list`);
 
@@ -34,11 +35,22 @@ export default {
       utils.clearMarkup(navigation.main);
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
         utils.putTemplates(this.main, filmInfoTemplate(data));
+
+        localStorage.setItem('films', [navigation.watched]);
         this.addToWatchBtn = document.querySelector(`#overlooked`);
+        this.getLocalStorageData();
         this.addToWatchBtn.addEventListener(
           `click`,
-          this.addToWatched.bind(this),
+          this.toggleBtnStatus.bind(this),
         );
+
+        if (this.watchedFlag) {
+          this.addToWatchBtn.innerText = 'Добавить';
+          this.watchedFlag = false;
+        } else {
+          this.addToWatchBtn.innerText = 'Удалить';
+          this.watchedFlag = true;
+        }
       });
     } else return;
   },
@@ -63,7 +75,50 @@ export default {
       navigation.watched.push(this.filmId);
       localStorage.setItem('films', [navigation.watched]);
     }
+  },
+  removeFromLocalStorage: function() {
+    const storageData = localStorage.getItem(`films`);
+    const index = navigation.watched.indexOf(this.filmId);
 
-    console.log(navigation.watched);
+    navigation.watched.splice(index, 1);
+    localStorage.setItem(`films`, navigation.watched);
+  },
+  getLocalStorageData: function() {
+    if (localStorage.getItem('films') !== null) {
+      if (
+        localStorage
+          .getItem('films')
+          .split(',')
+          .indexOf(this.filmId) > -1
+      ) {
+        this.watchedFlag = false;
+      } else {
+        this.watchedFlag = true;
+      }
+    }
+  },
+  toggleBtnStatus: function() {
+    if (this.watchedFlag) {
+      this.addToWatchBtn.innerText = 'Добавить';
+      this.watchedFlag = false;
+      this.removeFromLocalStorage();
+    } else {
+      this.addToWatchBtn.innerText = 'Удалить';
+      this.watchedFlag = true;
+      this.addToWatched();
+    }
+  },
+  toggleBtnEvents: function() {
+    if (this.watchedFlag) {
+      this.addToWatchBtn.addEventListener(
+        `click`,
+        this.addToWatched.bind(this),
+      );
+    } else {
+      this.addToWatchBtn.addEventListener(
+        `click`,
+        this.removeFromLocalStorage.bind(this, 'films'),
+      );
+    }
   },
 };
