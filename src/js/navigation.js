@@ -14,9 +14,11 @@ const navigation = {
     this.logoLink = document.querySelector(`.header-nav__logo`);
     this.libraryPageLink = document.querySelector(`.header-nav__link--library`);
     this.mainPage = document.querySelector(`.js-home`);
+    this.loader = document.querySelector(`.loader`);
 
     this.bindEvents();
     this.showPages();
+    window.onload = this.deleteLoader();
   },
   bindEvents: function() {
     this.homePageLink.addEventListener(
@@ -65,6 +67,13 @@ const navigation = {
   },
   clearMarkup: function() {
     this.main.innerHTML = ``;
+  },
+  deleteLoader: function() {
+    setTimeout(() => {
+      const loader = document.querySelector(`.loader`);
+
+      loader.style.display = 'none';
+    }, 1000);
   },
 };
 
