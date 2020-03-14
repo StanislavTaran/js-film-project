@@ -2,6 +2,7 @@ import FETCH_FILMS from './api/FETCH_FILMS';
 import cardTemplate from '../templates/card.hbs';
 import filmInfo from '../js/card';
 import utils from './utils';
+import card from './card';
 
 export default {
   init: function() {
@@ -13,10 +14,16 @@ export default {
 
     this.build('watchedFilms', this.watchedFilms);
     this.build('queuedFilms', this.queuedFilms);
+    this.bindEvents();
     filmInfo.init();
     this.getTrigger();
   },
-  bindEvents: function() {},
+  bindEvents: function() {
+    this.queuedFilms.addEventListener(
+      'click',
+      card.generateFilmInfoPage.bind(card),
+    );
+  },
   build: function(key, elem) {
     if (localStorage.getItem(key) !== null) {
       localStorage

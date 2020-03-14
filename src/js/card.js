@@ -36,41 +36,7 @@ export default {
       utils.clearMarkup(navigation.main);
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
         utils.putTemplates(this.main, filmInfoTemplate(data));
-
-        localStorage.setItem('watchedFilms', [navigation.watched]);
-        localStorage.setItem('queuedFilms', [navigation.queued]);
-
-        this.addToWatchBtn = document.querySelector(`#overlooked`);
-        this.addToQueueBtn = document.querySelector(`#add-to-queue`);
-
-        this.getLocalStorageWatchedData();
-        this.getLocalStorageQueuedData();
-
-        this.addToWatchBtn.addEventListener(
-          `click`,
-          this.toggleWatchedStatus.bind(this),
-        );
-
-        this.addToQueueBtn.addEventListener(
-          `click`,
-          this.toggleQueuedStatus.bind(this),
-        );
-
-        if (this.watchedFlag) {
-          this.addToWatchBtn.innerText = 'Добавить';
-          this.watchedFlag = false;
-        } else {
-          this.addToWatchBtn.innerText = 'Удалить';
-          this.watchedFlag = true;
-        }
-
-        if (this.queuedFlag) {
-          this.addToQueueBtn.innerText = 'Добавить';
-          this.queuedFlag = false;
-        } else {
-          this.addToQueueBtn.innerText = 'Удалить';
-          this.queuedFlag = true;
-        }
+        this.addToLibrary();
       });
     } else return;
   },
@@ -83,6 +49,42 @@ export default {
       utils.clearMarkup(this.main);
       this.getMovieData();
       history.pushState(null, null, `/movie?${this.filmId}`);
+    }
+  },
+  addToLibrary: function() {
+    localStorage.setItem('watchedFilms', [navigation.watched]);
+    localStorage.setItem('queuedFilms', [navigation.queued]);
+
+    this.addToWatchBtn = document.querySelector(`#overlooked`);
+    this.addToQueueBtn = document.querySelector(`#add-to-queue`);
+
+    this.getLocalStorageWatchedData();
+    this.getLocalStorageQueuedData();
+
+    this.addToWatchBtn.addEventListener(
+      `click`,
+      this.toggleWatchedStatus.bind(this),
+    );
+
+    this.addToQueueBtn.addEventListener(
+      `click`,
+      this.toggleQueuedStatus.bind(this),
+    );
+
+    if (this.watchedFlag) {
+      this.addToWatchBtn.innerText = 'Добавить';
+      this.watchedFlag = false;
+    } else {
+      this.addToWatchBtn.innerText = 'Удалить';
+      this.watchedFlag = true;
+    }
+
+    if (this.queuedFlag) {
+      this.addToQueueBtn.innerText = 'Добавить';
+      this.queuedFlag = false;
+    } else {
+      this.addToQueueBtn.innerText = 'Удалить';
+      this.queuedFlag = true;
     }
   },
   addToLocalStorage: function(key, arr) {
