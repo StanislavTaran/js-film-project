@@ -7,8 +7,11 @@ import utils from './utils';
 
 const navigation = {
   init: function() {
-    this.watched = localStorage.getItem('films')
-      ? localStorage.getItem('films').split(',')
+    this.watched = localStorage.getItem('watchedFilms')
+      ? localStorage.getItem('watchedFilms').split(',')
+      : [];
+    this.queued = localStorage.getItem('queuedFilms')
+      ? localStorage.getItem('queuedFilms').split(',')
       : [];
     this.main = document.querySelector(`.page-main`);
     this.homePageLink = document.querySelector(`.header-nav__link--main`);

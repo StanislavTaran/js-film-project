@@ -9,22 +9,23 @@ export default {
     this.watchedFilms = document.querySelector(
       `.page-main__films-list--watched`,
     );
+    this.queuedFilms = document.querySelector(`.page-main__films-list--queued`);
 
-    this.build();
+    this.build('watchedFilms', this.watchedFilms);
+    this.build('queuedFilms', this.queuedFilms);
     filmInfo.init();
     this.getTrigger();
   },
   bindEvents: function() {},
-  build: function() {
-    if (localStorage.getItem(`films`) !== null) {
+  build: function(key, elem) {
+    if (localStorage.getItem(key) !== null) {
       localStorage
-        .getItem(`films`)
+        .getItem(key)
         .split(',')
         .forEach(item => {
           if (item !== ``) {
             FETCH_FILMS.filmInfo(item).then(data => {
-              console.log(data);
-              utils.putTemplates(this.watchedFilms, cardTemplate(data));
+              utils.putTemplates(elem, cardTemplate(data));
             });
           }
         });
