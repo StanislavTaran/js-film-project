@@ -66,7 +66,9 @@ const navigation = {
   deleteLoader: function() {
     setTimeout(() => {
       const loader = document.querySelector(`.loader`);
+      const body = document.querySelector(`body`);
 
+      body.style.overflow = 'visible';
       loader.style.display = 'none';
     }, 500);
   },
