@@ -1,6 +1,7 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
 import cardTemplate from '../templates/card.hbs';
 import filmInfo from '../js/card';
+import utils from './utils';
 
 export default {
   init: function() {
@@ -23,7 +24,7 @@ export default {
           if (item !== ``) {
             FETCH_FILMS.filmInfo(item).then(data => {
               console.log(data);
-              this.putTemplates(this.watchedFilms, cardTemplate(data));
+              utils.putTemplates(this.watchedFilms, cardTemplate(data));
             });
           }
         });
@@ -48,11 +49,5 @@ export default {
         content.classList.add('active');
       });
     });
-  },
-  getTemplates: function(obj, templates) {
-    return obj.map(item => templates(item)).join(``);
-  },
-  putTemplates: function(ref, markup) {
-    ref.insertAdjacentHTML(`beforeend`, markup);
   },
 };

@@ -1,6 +1,7 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
 import { navigation } from './navigation';
 import filmInfoTemplate from '../templates/filmInfo.hbs';
+import utils from './utils';
 
 export default {
   init: function() {
@@ -30,9 +31,9 @@ export default {
   },
   getMovieData: function() {
     if (this.filmId) {
-      navigation.clearMarkup();
+      utils.clearMarkup(navigation.main);
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
-        this.putTemplates(this.main, filmInfoTemplate(data));
+        utils.putTemplates(this.main, filmInfoTemplate(data));
         this.addToWatchBtn = document.querySelector(`#overlooked`);
         this.addToWatchBtn.addEventListener(
           `click`,
@@ -47,7 +48,7 @@ export default {
     }
 
     if (this.filmId !== undefined) {
-      this.clearMarkup();
+      utils.clearMarkup(this.main);
       this.getMovieData();
       history.pushState(null, null, `/movie?${this.filmId}`);
     }
@@ -64,11 +65,5 @@ export default {
     }
 
     console.log(navigation.watched);
-  },
-  clearMarkup: function() {
-    this.main.innerHTML = ``;
-  },
-  putTemplates: function(ref, template) {
-    ref.insertAdjacentHTML(`beforeend`, template);
   },
 };
