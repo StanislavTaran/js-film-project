@@ -2,6 +2,7 @@ import FETCH_FILMS from './api/FETCH_FILMS';
 import cardTemplate from '../templates/card.hbs';
 import filmInfo from './card';
 import search from './search';
+import utils from './utils';
 
 export default {
   init: function() {
@@ -27,10 +28,10 @@ export default {
   getAllFilms: function(page) {
     FETCH_FILMS.allFilms(page ? page : 1).then(data => {
       this.page = data.page;
-      this.clearMarkup();
-      this.putTemplates(
+      utils.clearMarkup(this.filmList);
+      utils.putTemplates(
         this.filmList,
-        this.getTemplates(data.results, cardTemplate),
+        utils.getTemplates(data.results, cardTemplate),
       );
 
       if (this.page === 1) {
@@ -44,17 +45,8 @@ export default {
       return data;
     });
   },
-  getTemplates: function(obj, templates) {
-    return obj.map(item => templates(item)).join(``);
-  },
-  putTemplates: function(ref, markup) {
-    ref.insertAdjacentHTML(`beforeend`, markup);
-  },
-  clearMarkup: function() {
-    this.filmList.innerHTML = ``;
-  },
   generateAnotherPage: function() {
-    this.clearMarkup();
+    utils.clearMarkup(this.filmList);
     window.scrollTo(0, 0);
     this.prevBtn.removeAttribute('disabled');
     this.pageNumber.innerHTML = this.page;
