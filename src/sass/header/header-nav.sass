@@ -6,13 +6,16 @@
 
   &::before
     position: absolute
-    right: 90%
+    right: 85%
     top: 0
     width: 20000px
     height: 100%
     content: ''
     background-color: #f8104d
     transform: skewX(-30deg)
+
+    @media only screen and (max-width: 768px)
+      right: 55%
 
   &__logo
     font-size: 32px
@@ -25,6 +28,7 @@
   &__list
     display: flex
     flex-flow: row wrap
+    z-index: 1
 
   &__item
     &:nth-child(2)
@@ -36,3 +40,6 @@
 
     &:hover
       color: #f8104d
+
+  @media only screen and (max-width: 768px)
+    flex-direction: column
