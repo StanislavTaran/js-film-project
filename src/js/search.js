@@ -33,7 +33,7 @@ export default {
   getSearchPage: function() {
     if (this.query !== undefined) {
       history.pushState(null, null, `/search?${this.query}`);
-      navigation.generateHome();
+      // navigation.generateHome();
       location.reload();
     }
   },
