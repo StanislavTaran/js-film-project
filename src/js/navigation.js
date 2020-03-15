@@ -18,6 +18,7 @@ const navigation = {
     this.logoLink = document.querySelector(`.header-nav__logo`);
     this.libraryPageLink = document.querySelector(`.header-nav__link--library`);
     this.mainPage = document.querySelector(`.js-home`);
+    this.toTopBtn = document.querySelector(`.page-footer__to-top`);
     this.loader = document.querySelector(`.loader`);
 
     this.bindEvents();
@@ -34,6 +35,7 @@ const navigation = {
       `click`,
       this.generateLibraryPage.bind(this),
     );
+    this.toTopBtn.addEventListener(`click`, this.scrollToTop.bind(this));
   },
   generateHome: function() {
     utils.clearMarkup(this.main);
@@ -70,10 +72,20 @@ const navigation = {
     setTimeout(() => {
       const loader = document.querySelector(`.loader`);
       const body = document.querySelector(`body`);
+      const header = document.querySelector(`header`);
+      const footer = document.querySelector(`footer`);
 
+      header.style.visibility = 'visible';
+      footer.style.visibility = 'visible';
       body.style.overflow = 'visible';
       loader.style.display = 'none';
     }, 500);
+  },
+  scrollToTop: function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   },
 };
 
