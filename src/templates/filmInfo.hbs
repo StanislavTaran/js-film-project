@@ -3,27 +3,41 @@
     <div class="js-home">
         <ul class="page-main__films-list">
             <li class="film__card">
-                <h3 class="film__card--title">{{title}}</h3>
-                <img class="film__card--poster film-poster" src='http://image.tmdb.org/t/p/w300{{poster_path}}'
-                    alt={{original_title}} />
-                <div class="film__card-attr">
-                    <span class="film__card-stars"><i class="material-icons icon--star">stars</i>{{vote_average}}</span>
-                    <span class="film__card-release">Дата выхода: {{release_date}}</span>
+                <div class="card">
+                    <img class="film__card--poster" src='https://image.tmdb.org/t/p/w200{{poster_path}}'
+                        alt={{original_title}} />
+                    <div class="card-info">
+                        <div class="card-title-summary">
+                            <div class="card-title-star">
+                                <h3 class="film__card--title">{{title}}</h3>
+                                <div class="film__card-attr">
+                                    <span class="film__card-stars"><i
+                                            class="material-icons icon--star">stars</i>{{vote_average}}</span>
+                                    <span class="film__card-release">Дата выхода: {{release_date}}</span>
+
+                                </div>
+                            </div>
+                            <div>
+                                <details>
+                                    <summary>Показать описание</summary>
+                                    <p class="text-summary">
+                                        {{overview}}</p>
+                                </details>
+                            </div>
+                        </div>
+                        <div class="film__card-buttons">
+                            <button id="overlooked" class="film__card-button">
+                                <i class="material-icons icon--star">folder_open</i><span class="btn-span">Добавить в
+                                    просмотренные</span>
+                            </button>
+                            <button id="add-to-queue" class="film__card-button">
+                                <i class="material-icons icon--star">add_circle_outline</i><span
+                                    class="btn-span">Добавить
+                                    в очередь просмотра</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="film__card-buttons">
-                    <button id="overlooked" class="film__card-button">
-                        <i class="material-icons icon--star">folder_open</i> Добавить в
-                        просмотренные
-                    </button>
-                    <button id="add-to-queue" class="film__card-button">
-                        <i class="material-icons icon--star">add_circle_outline</i> Добавить
-                        в очередь просмотра
-                    </button>
-                </div>
-                <details>
-                    <summary>Показать описание</summary>
-                    {{overview}}
-                </details>
             </li>
         </ul>
     </div>
