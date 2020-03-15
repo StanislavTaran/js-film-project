@@ -23,6 +23,7 @@ export default {
       'click',
       card.generateFilmInfoPage.bind(card),
     );
+    window.onload = utils.defaultPoster(this.filmList);
   },
   build: function(key, elem) {
     if (localStorage.getItem(key) !== null) {
