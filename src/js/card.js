@@ -1,9 +1,12 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
 import { navigation } from './navigation';
 import filmInfoTemplate from '../templates/filmInfo.hbs';
+import utils from './utils';
 
 export default {
   init: function() {
+    this.watchedFlag = false;
+    this.queuedFlag = false;
     this.main = document.querySelector(`.page-main`);
     this.filmList = document.querySelector(`.page-main__films-list`);
 
@@ -30,14 +33,11 @@ export default {
   },
   getMovieData: function() {
     if (this.filmId) {
-      navigation.clearMarkup();
+      utils.clearMarkup(navigation.main);
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
-        this.putTemplates(this.main, filmInfoTemplate(data));
-        this.addToWatchBtn = document.querySelector(`#overlooked`);
-        this.addToWatchBtn.addEventListener(
-          `click`,
-          this.addToWatched.bind(this),
-        );
+        utils.putTemplates(this.main, filmInfoTemplate(data));
+        this.addToLibrary();
+        utils.defaultPoster();
       });
     } else return;
   },
@@ -47,28 +47,112 @@ export default {
     }
 
     if (this.filmId !== undefined) {
-      this.clearMarkup();
+      utils.clearMarkup(this.main);
       this.getMovieData();
       history.pushState(null, null, `/movie?${this.filmId}`);
     }
   },
-  addToWatched: function() {
-    if (navigation.watched.length !== 0) {
-      if (navigation.watched.indexOf(this.filmId) === -1) {
-        navigation.watched.push(this.filmId);
-        localStorage.setItem('films', [navigation.watched]);
-      }
+  addToLibrary: function() {
+    localStorage.setItem('watchedFilms', [navigation.watched]);
+    localStorage.setItem('queuedFilms', [navigation.queued]);
+
+    this.addToWatchBtn = document.querySelector(`#overlooked`);
+    this.addToQueueBtn = document.querySelector(`#add-to-queue`);
+
+    this.getLocalStorageWatchedData();
+    this.getLocalStorageQueuedData();
+
+    this.addToWatchBtn.addEventListener(
+      `click`,
+      this.toggleWatchedStatus.bind(this),
+    );
+
+    this.addToQueueBtn.addEventListener(
+      `click`,
+      this.toggleQueuedStatus.bind(this),
+    );
+
+    if (this.watchedFlag) {
+      this.addToWatchBtn.innerText = 'Добавить';
+      this.watchedFlag = false;
     } else {
-      navigation.watched.push(this.filmId);
-      localStorage.setItem('films', [navigation.watched]);
+      this.addToWatchBtn.innerText = 'Удалить';
+      this.watchedFlag = true;
     }
 
-    console.log(navigation.watched);
+    if (this.queuedFlag) {
+      this.addToQueueBtn.innerText = 'Добавить';
+      this.queuedFlag = false;
+    } else {
+      this.addToQueueBtn.innerText = 'Удалить';
+      this.queuedFlag = true;
+    }
   },
-  clearMarkup: function() {
-    this.main.innerHTML = ``;
+  addToLocalStorage: function(key, arr) {
+    if (arr.length !== 0) {
+      if (arr.indexOf(this.filmId) === -1) {
+        arr.push(this.filmId);
+        localStorage.setItem(key, [arr]);
+      }
+    } else {
+      arr.push(this.filmId);
+      localStorage.setItem(key, [arr]);
+    }
   },
-  putTemplates: function(ref, template) {
-    ref.insertAdjacentHTML(`beforeend`, template);
+  removeFromLocalStorage: function(key, arr) {
+    const index = arr.indexOf(this.filmId);
+
+    arr.splice(index, 1);
+    localStorage.setItem(key, arr);
+  },
+  getLocalStorageWatchedData: function() {
+    if (localStorage.getItem('watchedFilms') !== null) {
+      if (
+        localStorage
+          .getItem('watchedFilms')
+          .split(',')
+          .indexOf(this.filmId) > -1
+      ) {
+        this.watchedFlag = false;
+      } else {
+        this.watchedFlag = true;
+      }
+    }
+  },
+  getLocalStorageQueuedData: function() {
+    if (localStorage.getItem('queuedFilms') !== null) {
+      if (
+        localStorage
+          .getItem('queuedFilms')
+          .split(',')
+          .indexOf(this.filmId) > -1
+      ) {
+        this.queuedFlag = false;
+      } else {
+        this.queuedFlag = true;
+      }
+    }
+  },
+  toggleWatchedStatus: function() {
+    if (this.watchedFlag) {
+      this.addToWatchBtn.innerText = 'Добавить';
+      this.watchedFlag = false;
+      this.removeFromLocalStorage('watchedFilms', navigation.watched);
+    } else {
+      this.addToWatchBtn.innerText = 'Удалить';
+      this.watchedFlag = true;
+      this.addToLocalStorage('watchedFilms', navigation.watched);
+    }
+  },
+  toggleQueuedStatus: function() {
+    if (this.queuedFlag) {
+      this.addToQueueBtn.innerText = 'Добавить';
+      this.queuedFlag = false;
+      this.removeFromLocalStorage('queuedFilms', navigation.queued);
+    } else {
+      this.addToQueueBtn.innerText = 'Удалить';
+      this.queuedFlag = true;
+      this.addToLocalStorage('queuedFilms', navigation.queued);
+    }
   },
 };

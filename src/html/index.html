@@ -7,7 +7,8 @@
     <title>FILMS</title>
   </head>
 
-  <body>
+  <body style="overflow: hidden;">
+    <!-- <img src="../images/default.jpg" alt="go" /> -->
     <div class="loader" style="display: flex;">
       <svg
         class="spinner"
@@ -27,7 +28,7 @@
         ></circle>
       </svg>
     </div>
-    <header class="page-header">
+    <header class="page-header" style="visibility: hidden;">
       <div class="page-container">
         <nav class="page-header__nav header-nav">
           <a href="/" class="header-nav__logo">
@@ -79,8 +80,22 @@
         <ul class="page-main__films-list"></ul>
       </div>
     </main>
-    <footer class="page-footer">
-      <div class="page-container"></div>
+    <footer class="page-footer" style="visibility: hidden;">
+      <div class="page-container">
+        <div class="copyright">
+          <span class="copyright__text">© JS FILM PROJECT 2020</span>
+        </div>
+      </div>
+      <button class="page-footer__to-top">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+        </svg>
+      </button>
     </footer>
   </body>
 </html>

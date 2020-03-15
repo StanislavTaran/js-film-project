@@ -1,6 +1,8 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
 import cardTemplate from '../templates/card.hbs';
 import filmInfo from '../js/card';
+import utils from './utils';
+import card from './card';
 
 export default {
   init: function() {
@@ -8,22 +10,31 @@ export default {
     this.watchedFilms = document.querySelector(
       `.page-main__films-list--watched`,
     );
+    this.queuedFilms = document.querySelector(`.page-main__films-list--queued`);
 
-    this.build();
+    this.build('watchedFilms', this.watchedFilms);
+    this.build('queuedFilms', this.queuedFilms);
+    this.bindEvents();
     filmInfo.init();
     this.getTrigger();
   },
-  bindEvents: function() {},
-  build: function() {
-    if (localStorage.getItem(`films`) !== null) {
+  bindEvents: function() {
+    this.queuedFilms.addEventListener(
+      'click',
+      card.generateFilmInfoPage.bind(card),
+    );
+    // window.onload = utils.defaultPoster(this.filmList);
+  },
+  build: function(key, elem) {
+    if (localStorage.getItem(key) !== null) {
       localStorage
-        .getItem(`films`)
+        .getItem(key)
         .split(',')
         .forEach(item => {
           if (item !== ``) {
             FETCH_FILMS.filmInfo(item).then(data => {
-              console.log(data);
-              this.putTemplates(this.watchedFilms, cardTemplate(data));
+              utils.putTemplates(elem, cardTemplate(data));
+              utils.defaultPoster();
             });
           }
         });
@@ -48,11 +59,5 @@ export default {
         content.classList.add('active');
       });
     });
-  },
-  getTemplates: function(obj, templates) {
-    return obj.map(item => templates(item)).join(``);
-  },
-  putTemplates: function(ref, markup) {
-    ref.insertAdjacentHTML(`beforeend`, markup);
   },
 };
