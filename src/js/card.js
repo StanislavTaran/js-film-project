@@ -37,6 +37,7 @@ export default {
       FETCH_FILMS.filmInfo(this.filmId).then(data => {
         utils.putTemplates(this.main, filmInfoTemplate(data));
         this.addToLibrary();
+        utils.defaultPoster();
       });
     } else return;
   },

@@ -34,6 +34,7 @@ export default {
           if (item !== ``) {
             FETCH_FILMS.filmInfo(item).then(data => {
               utils.putTemplates(elem, cardTemplate(data));
+              utils.defaultPoster();
             });
           }
         });

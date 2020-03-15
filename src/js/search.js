@@ -1,6 +1,5 @@
 import FETCH_FILMS from './api/FETCH_FILMS';
 import cardTemplate from '../templates/card.hbs';
-import { navigation } from './navigation';
 import utils from './utils';
 
 export default {
@@ -49,6 +48,7 @@ export default {
         this.filmList,
         utils.getTemplates(data.results, cardTemplate),
       );
+      utils.defaultPoster();
 
       if (this.page === 1) {
         this.prevBtn.setAttribute('disabled', '');

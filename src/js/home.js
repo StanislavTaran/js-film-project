@@ -33,6 +33,7 @@ export default {
         this.filmList,
         utils.getTemplates(data.results, cardTemplate),
       );
+      utils.defaultPoster();
 
       if (this.page === 1) {
         this.prevBtn.setAttribute('disabled', '');
