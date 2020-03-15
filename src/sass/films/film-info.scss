@@ -1,32 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.page-main {
-  background-image: url(./../images/bg3.jpg);
-  width: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-top: 20px;
-  height: auto;
-  overflow: hidden;
-}
-
-.page-title {
-  text-align: center;
-  color: white;
-  margin-top: 0;
-  font-size: 25px;
-}
-
 .film__card {
   margin: 0 auto;
   padding: 0;
-  max-height: 400px;
   width: 300px;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 .film__card--poster {
@@ -196,7 +171,7 @@ summary {
   .film__card--title {
     display: flex;
     font-size: 30px;
-    align-items: start;
+    align-items: flex-start;
   }
 
   summary {
