@@ -12,7 +12,7 @@ export default {
 
     this.filmId = this.filmId
       ? this.filmId
-      : window.location.search.split('?')[1];
+      : window.location.hash.split('?')[1];
 
     this.bindEvents();
   },
@@ -49,7 +49,7 @@ export default {
     if (this.filmId !== undefined) {
       utils.clearMarkup(this.main);
       this.getMovieData();
-      history.pushState(null, null, `/movie?${this.filmId}`);
+      history.pushState(null, null, `#movie?${this.filmId}`);
     }
   },
   addToLibrary: function() {

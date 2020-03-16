@@ -13,7 +13,7 @@ export default {
     this.pageTitle = document.querySelector(`.page-title`);
     this.filmList = document.querySelector(`.page-main__films-list`);
 
-    if (window.location.pathname === `/`) {
+    if (window.location.pathname === `/js-film-project/`) {
       this.getAllFilms(this.page);
     }
 
@@ -52,7 +52,7 @@ export default {
     this.prevBtn.removeAttribute('disabled');
     this.pageNumber.innerHTML = this.page;
 
-    if (window.location.pathname === `/`) {
+    if (window.location.pathname === `/js-film-project/`) {
       this.getAllFilms(this.page);
     }
   },

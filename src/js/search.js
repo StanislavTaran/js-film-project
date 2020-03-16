@@ -4,7 +4,7 @@ import utils from './utils';
 
 export default {
   init: function() {
-    this.query = this.query ? this.query : window.location.search.split('?')[1];
+    this.query = this.query ? this.query : window.location.hash.split('?')[1];
     this.page = 1;
     this.pageNumber = document.querySelector(`.current-page`);
     this.nextBtn = document.querySelector(`.btn-next`);
@@ -32,7 +32,8 @@ export default {
   },
   getSearchPage: function() {
     if (this.query !== undefined) {
-      history.pushState(null, null, `/search?${this.query}`);
+      window.location = `#search?${this.query}`
+      // history.pushState(null, null, `/search?${this.query}`);
       // navigation.generateHome();
       location.reload();
     }

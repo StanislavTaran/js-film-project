@@ -44,7 +44,8 @@ const navigation = {
   },
   generateHomePage: function(e) {
     e.preventDefault();
-    history.pushState(null, null, '/');
+    // history.pushState(null, null, '/');
+    window.location = '#'
     this.generateHome();
   },
   generateLibraryPage: function(e) {
@@ -54,7 +55,8 @@ const navigation = {
   generateLibrary: function() {
     utils.clearMarkup(this.main);
     utils.putTemplates(this.main, libraryPageTemplate(this.main));
-    history.pushState(null, null, '/library');
+    window.location = '#library'
+    // history.pushState(null, null, 'library');
     library.init();
   },
   showPages: function() {

@@ -13,7 +13,7 @@ export default {
 
     arrOfChildrens.forEach(item => {
       if (item.src === 'http://image.tmdb.org/t/p/w300') {
-        item.src = '../images/default.jpg';
+        item.src = '../js-film-project/images/default.jpg';
       } else {
       }
     });
