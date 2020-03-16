@@ -9,6 +9,7 @@ module.exports = env => ({
   entry: './app.js',
   output: {
     path: paths.BUILD_DIR,
+    publicPath: '/js-film-project/',
   },
   module: {
     rules: [
