@@ -51,6 +51,9 @@ export default {
       );
       utils.defaultPoster();
 
+      if (data.results.length === 0) {
+        this.filmList.innerText = 'Фильмов нет, но вы держитесь!'
+      }
       if (this.page === 1) {
         this.prevBtn.setAttribute('disabled', '');
       }
