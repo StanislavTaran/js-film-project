@@ -1,16 +1,20 @@
 .film__card {
   margin: 0 auto;
+  margin-bottom: 20px;
   padding: 0;
   width: calc(100% - 20px);
   display: flex;
   justify-content: space-around;
-  font-family: Roboto Slab, serif;
 }
 .film__poster-wrapper {
   width: 300px;
 }
+.film__poster {
+  display: block;
+  width: 100%;
+}
 .film__card-description {
-  padding-left: 20px;
+  padding-left: 50px;
 }
 .film__poster-wrapper {
   position: relative;
@@ -25,6 +29,9 @@
   bottom: -25px;
   right: 100px;
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .film__card-attr {
   margin-bottom: 50px;
@@ -35,6 +42,10 @@
   display: flex;
   justify-content: space-around;
 }
+
+.attr-item__name {
+  font-weight: 500;
+}
 .attr-item span {
   width: 50%;
 }
@@ -44,14 +55,9 @@
   -moz-box-shadow: -2px 0px 45px -11px rgba(0, 0, 0, 0.77);
   box-shadow: -2px 0px 45px -11px rgba(0, 0, 0, 0.77);
 }
-
-// .card-title-star {
-//   display: block;
-// }
-
 .film__card-title {
   font-size: 28px;
-  font-weight: 900;
+  font-weight: 700;
   color: #000;
   margin: 10px 0;
   text-align: start;
@@ -62,12 +68,6 @@
   color: #fff;
   text-align: center;
   font-weight: bold;
-}
-
-.icon--star {
-  vertical-align: sub;
-  margin-top: 8px;
-  margin-bottom: 10px;
 }
 
 .film__card-release {
@@ -81,15 +81,6 @@
   justify-content: space-around;
   position: relative;
 }
-
-// .film__card-stars,
-// .film__card-release,
-// .film__card details {
-//   display: block;
-//   width: 70%;
-//   margin: 0 auto;
-//   color: #fff;
-// }
 
 .film__card-button {
   display: block;
@@ -116,113 +107,45 @@
   line-height: 1.2em;
 }
 
-// .material-icons {
-//   margin-right: 10px;
-//   padding-left: 10px;
-// }
+@media (max-width: 768px) {
+  .film__card {
+    flex-direction: column;
+  }
 
-// // .card {
-// //   display: block;
-// //   padding-top: 15px;
-// //   padding-bottom: 15px;
-// //   // height: 100%;
-// //   position: relative;
-// //   left: 50%;
-// //   transform: translate(-50%, 0);
-// //   width: 320px;
-// //   background-color: rgba(0, 0, 0, 0.45);
-// // }
+  .film__card-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
 
-// summary {
-//   margin-top: 15px;
-//   font-weight: bold;
-//   font-size: 18px;
-//   outline: none;
-//   cursor: pointer;
-//   color: #fff;
+  .film__poster-wrapper {
+    margin: 0 auto;
+    margin-bottom: 35px;
+  }
+  .film__card-description {
+    padding: 0;
+  }
+}
 
-//   &:hover {
-//     color: #f8104d;
-//   }
-// }
+@media (max-width: 465px) {
+  .page-container {
+    padding: 0 5px;
+  }
+  .film__card {
+    width: 100%;
+  }
+  .film__card-attr,
+  .attr-item,
+  .attr-item__name,
+  .attr-item__value {
+    display: flex;
+    flex-direction: column;
+  }
 
-// @media (min-width: 320px) and (max-width: 1199px) {
-//   .film__card-release ::after {
-//     content: '';
-//     position: absolute;
-//     left: 50%;
-//     transform: translate(-50%, 0);
-//     margin-top: 20px;
-//     width: 260px;
-//     height: 2px;
-//     background-color: #f8104d;
-//   }
-
-//   .film__card-button {
-//     position: relative;
-//     left: 50%;
-//     transform: translate(-50%, 0);
-//     display: flex;
-//     &:first-child {
-//       margin-right: 5px;
-//     }
-//   }
-// }
-
-// @media (min-width: 1200px) {
-//   .card {
-//     width: 900px;
-//     display: flex;
-//     justify-content: space-around;
-//     align-items: flex-start;
-//   }
-
-//   .card-info {
-//     display: flex;
-//     flex-direction: column;
-//     padding-left: 10px;
-//     padding-right: 10px;
-//     height: 390px;
-//     justify-content: space-between;
-//   }
-
-//   .card-title-star {
-//     display: flex;
-//     flex-direction: column;
-//   }
-
-//   .film__card-attr {
-//     display: flex;
-//     align-items: flex-end;
-//   }
-
-//   .film__card--poster {
-//     margin-left: 35px;
-//     margin-right: 0;
-//   }
-
-//   .film__card--title {
-//     display: flex;
-//     font-size: 30px;
-//     align-items: flex-start;
-//   }
-
-//   summary {
-//     display: flex;
-//     font-size: 23px;
-//     margin-left: -70px;
-//   }
-
-//   .film__card-button,
-//   .film__card-buttons {
-//     display: flex;
-
-//     &:first-child {
-//       margin-right: 10px;
-//     }
-//   }
-
-//   .film__card-release {
-//     margin-bottom: 15px;
-//   }
-// }
+  .attr-item span {
+    width: 100%;
+  }
+  .attr-item__value:nth-child(1n) {
+    background-color: #281f5530;
+    width: 100%;
+  }
+}
