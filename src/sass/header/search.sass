@@ -2,7 +2,10 @@
   width: 30%
 
   &__wrap
+    display: block
+    max-height: 40px
     position: relative
+    overflow: hidden
     height: 40px
 
   &__input
@@ -15,6 +18,7 @@
 
   &__btn
     position: absolute
+    top: 0
     right: 0
     height: 100%
     width: 40px
@@ -30,3 +34,7 @@
     &:hover
       svg
         fill: #f8104d
+
+  @media only screen and (max-width: 768px)
+    width: 100%
+    margin: 20px 0

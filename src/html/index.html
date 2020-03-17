@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>FILMS</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
   </head>
 
-  <body>
-    <header class="page-header">
+  <body style="overflow: hidden;">
+    <!-- <img src="../images/default.jpg" alt="go" /> -->
+    <div class="loader" style="display: flex;">
+      <svg
+        class="spinner"
+        width="65px"
+        height="65px"
+        viewBox="0 0 66 66"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          class="path"
+          fill="none"
+          stroke-width="6"
+          stroke-linecap="round"
+          cx="33"
+          cy="33"
+          r="30"
+        ></circle>
+      </svg>
+    </div>
+    <header class="page-header" style="visibility: hidden;">
       <div class="page-container">
         <nav class="page-header__nav header-nav">
           <a href="/" class="header-nav__logo">
@@ -16,10 +37,16 @@
           </a>
           <ul class="header-nav__list">
             <li class="header-nav__item">
-              <a href="/" class="header-nav__link">Главная</a>
+              <a href="/" class="header-nav__link header-nav__link--main"
+                >Главная</a
+              >
             </li>
             <li class="header-nav__item">
-              <a href="/library" class="header-nav__link">Моя библиотека</a>
+              <a
+                href="/library"
+                class="header-nav__link header-nav__link--library"
+                >Моя библиотека</a
+              >
             </li>
           </ul>
           <div class="header-nav__search search">
@@ -50,14 +77,26 @@
       </div>
     </header>
     <main class="page-main">
-      <div class="page-container">
-        <div name="home" class="js-home"></div>
-        <div name="search" class="js-search"></div>
-        <div name="library" class="js-library"></div>
+      <div class="js-home">
+        <ul class="page-main__films-list"></ul>
       </div>
     </main>
-    <footer class="page-footer">
-      <div class="page-container"></div>
+    <footer class="page-footer" style="visibility: hidden;">
+      <div class="page-container">
+        <div class="copyright">
+          <span class="copyright__text">© JS FILM PROJECT 2020</span>
+        </div>
+      </div>
+      <button class="page-footer__to-top">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+        </svg>
+      </button>
     </footer>
   </body>
 </html>

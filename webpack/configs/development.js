@@ -29,7 +29,7 @@ module.exports = env => ({
   ],
   devServer: {
     contentBase: paths.BUILD_DIR,
-    publicPath: '',
+    publicPath: '/js-film-project/',
     historyApiFallback: true,
     compress: true,
     port: 4040,

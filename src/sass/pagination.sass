@@ -1,0 +1,35 @@
+.pagination
+  margin: 20px auto
+  display: flex
+  justify-content: center
+  align-items: center
+
+.btn-prev,
+.btn-next
+  background: transparent
+  border: 0
+  padding: 0
+  cursor: pointer
+
+  svg
+    fill: #281f55
+
+    &:hover
+      fill: #f8104d
+
+.btn-prev
+  svg
+    transform: rotate(180deg)
+
+  &:disabled
+    svg
+      fill: #ccc
+
+.btn-next
+  &:disabled
+    svg
+      fill: #ccc
+
+.current-page
+  font-weight: 500
+  margin: 0 20px
