@@ -5,7 +5,7 @@ import utils from './utils';
 export default {
   init: function() {
     this.query = this.query ? this.query : window.location.hash.split('?')[1];
-    this.page = 1;
+    this.page = window.location.hash.split('=')[1] ? window.location.hash.split('=')[1] : 1;
     this.pageNumber = document.querySelector(`.current-page`);
     this.nextBtn = document.querySelector(`.btn-next`);
     this.prevBtn = document.querySelector(`.btn-prev`);
@@ -13,6 +13,8 @@ export default {
     this.filmList = document.querySelector(`.page-main__films-list`);
     this.searchForm = document.querySelector(`.search__form`);
     this.searchInput = document.querySelector(`.search__input`);
+
+    this.pageNumber.innerHTML = this.page;
 
     if (window.location.href.indexOf('search') > -1) {
       this.getSearchedFilms(this.query, this.page);
@@ -43,7 +45,7 @@ export default {
     this.searchInput.value = ``;
 
     FETCH_FILMS.searchFilms(query, page).then(data => {
-      this.page = data.page;
+      this.pageNumber.innerHTML = page;
       utils.clearMarkup(this.filmList);
       utils.putTemplates(
         this.filmList,
@@ -54,11 +56,13 @@ export default {
       if (data.results.length === 0) {
         this.filmList.innerText = 'Фильмов нет, но вы держитесь!'
       }
-      if (this.page === 1) {
+      if (page <= 1) {
         this.prevBtn.setAttribute('disabled', '');
+      } else {
+        this.prevBtn.removeAttribute('disabled');
       }
 
-      if (this.page === data.total_pages) {
+      if (page === data.total_pages) {
         this.nextBtn.setAttribute('disabled', '');
       }
 
@@ -81,6 +85,7 @@ export default {
 
     if (window.location.href.indexOf('search') > -1) {
       this.getSearchedFilms(this.query, this.page);
+      window.location = `#search?${this.query}?page=${this.page}`
     }
   },
   nextPage: function() {
