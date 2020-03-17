@@ -12,7 +12,7 @@ export default {
     const arrOfChildrens = document.querySelectorAll('.film-poster');
 
     arrOfChildrens.forEach(item => {
-      if (item.src === 'http://image.tmdb.org/t/p/w300') {
+      if (item.src === 'https://image.tmdb.org/t/p/w300') {
         item.src = '../js-film-project/images/default.jpg';
       } else {
       }
