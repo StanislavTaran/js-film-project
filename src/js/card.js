@@ -73,18 +73,18 @@ export default {
     );
 
     if (this.watchedFlag) {
-      this.addToWatchBtn.innerText = 'Добавить';
+      this.addToWatchBtn.innerText = 'Добавить в просмотренные';
       this.watchedFlag = false;
     } else {
-      this.addToWatchBtn.innerText = 'Удалить';
+      this.addToWatchBtn.innerText = 'Удалить из просмотренных';
       this.watchedFlag = true;
     }
 
     if (this.queuedFlag) {
-      this.addToQueueBtn.innerText = 'Добавить';
+      this.addToQueueBtn.innerText = 'Добавить в очередь просмотра';
       this.queuedFlag = false;
     } else {
-      this.addToQueueBtn.innerText = 'Удалить';
+      this.addToQueueBtn.innerText = 'Удалить из очереди просмотра';
       this.queuedFlag = true;
     }
   },
@@ -135,22 +135,22 @@ export default {
   },
   toggleWatchedStatus: function() {
     if (this.watchedFlag) {
-      this.addToWatchBtn.innerText = 'Добавить';
+      this.addToWatchBtn.innerText = 'Добавить в просмотренные';
       this.watchedFlag = false;
       this.removeFromLocalStorage('watchedFilms', navigation.watched);
     } else {
-      this.addToWatchBtn.innerText = 'Удалить';
+      this.addToWatchBtn.innerText = 'Удалить из просмотренных';
       this.watchedFlag = true;
       this.addToLocalStorage('watchedFilms', navigation.watched);
     }
   },
   toggleQueuedStatus: function() {
     if (this.queuedFlag) {
-      this.addToQueueBtn.innerText = 'Добавить';
+      this.addToQueueBtn.innerText = 'Добавить в очередь просмотра';
       this.queuedFlag = false;
       this.removeFromLocalStorage('queuedFilms', navigation.queued);
     } else {
-      this.addToQueueBtn.innerText = 'Удалить';
+      this.addToQueueBtn.innerText = 'Удалить из очереди просмотра';
       this.queuedFlag = true;
       this.addToLocalStorage('queuedFilms', navigation.queued);
     }
