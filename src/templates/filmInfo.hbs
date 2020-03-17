@@ -29,18 +29,18 @@
                             <span class="attr-item__value">{{release_date}}</span></div>
                         <div class="attr-item "><span class="attr-item__name">Жанр: </span>
                             <span class="attr-item__value">{{#each genres}}
-                                <span>| {{this.name}}</span>
+                                <span><span class="devider">|</span> {{this.name}}</span>
                                 {{/each}}</span>
                         </div>
                         <div class="attr-item"><span class="attr-item__name">Студия: </span>
                             <span class="attr-item__value">{{#each production_companies}}
-                                <span>| {{this.name}}</span>
+                                <span><span class="devider">|</span> {{this.name}}</span>
                                 {{/each}}</span>
                         </div>
 
                         <div class="attr-item"><span class="attr-item__name">Страна: </span>
                             <span>{{#each production_countries}}
-                                <span class="attr-item__value">| {{this.name}}</span>
+                                <span class="attr-item__value"><span class="devider">|</span> {{this.name}}</span>
                                 {{/each}}</span>
                         </div>
                     </div>
